@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>GathUp - „Êﬁ⁄  ⁄«—›</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f5f5ff;
+      direction: rtl;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .container {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 30px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    input {
+      width: 80%;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #6b4eff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>„—Õ»« »ﬂ ›Ì GathUp!</h1>
+    <input type="text" id="username" placeholder="«ﬂ » «”„ﬂ">
+    <button onclick="saveUser()"> ”ÃÌ·</button>
+
+    <h2>«·√‘Œ«’ «·„”Ã·Ì‰:</h2>
+    <ul id="userList"></ul>
+  </div>
+
+  <script type="module">
+    // ≈⁄œ«œ«  Firebase - €Ì¯—Â« Õ”» „‘—Ê⁄ﬂ «·ÕﬁÌﬁÌ
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "÷⁄ «·„› «Õ Â‰«",
+      authDomain: "÷⁄ «·‰ÿ«ﬁ Â‰«",
+      databaseURL: "https://„‘—Ê⁄ﬂ.firebaseio.com",
+      projectId: "«”„ «·„‘—Ê⁄",
+      storageBucket: "«”„ «·„‘—Ê⁄.appspot.com",
+      messagingSenderId: "—ﬁ„ «·„—”·",
+      appId: "„⁄—¯› «· ÿ»Ìﬁ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const usernameInput = document.getElementById("username");
+    const userList = document.getElementById("userList");
+
+    function saveUser() {
+      const name = usernameInput.value;
+      if (name.trim() === "") return;
+
+      const userRef = ref(db, 'users/' + Date.now());
+      set(userRef, { name });
+      usernameInput.value = "";
+    }
+
+    onValue(ref(db, 'users'), (snapshot) => {
+      userList.innerHTML = "";
+      const data = snapshot.val();
+      for (let key in data) {
+        const li = document.createElement("li");
+        li.textContent = data[key].name;
+        userList.appendChild(li);
+      }
+    });
+  </script>
+</body>
+</html>

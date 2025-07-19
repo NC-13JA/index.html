@@ -2,7 +2,7 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <title>GathUp - موقع تعارف</title>
+  <title>GathUp - منصة تعارف</title>
   <style>
     body {
       font-family: sans-serif;
@@ -48,19 +48,16 @@
 <body>
   <div class="container">
     <h1 id="title">مرحبًا بك في GathUp!</h1>
-
     <select id="language" onchange="switchLanguage()">
       <option value="ar">العربية</option>
       <option value="en">English</option>
       <option value="fr">Français</option>
     </select>
-
     <input type="text" id="name" placeholder="الاسم">
     <input type="number" id="age" placeholder="العمر">
     <input type="text" id="city" placeholder="المدينة">
     <textarea id="hobbies" placeholder="الهوايات"></textarea>
     <button onclick="saveUser()" id="btnSave">تسجيل</button>
-
     <h2 id="registeredTitle">الأشخاص المسجلين:</h2>
     <ul id="userList"></ul>
   </div>
@@ -93,12 +90,9 @@
       const age = ageInput.value.trim();
       const city = cityInput.value.trim();
       const hobbies = hobbiesInput.value.trim();
-
       if (!name || !age || !city || !hobbies) return;
-
       const userRef = ref(db, 'users/' + Date.now());
       set(userRef, { name, age, city, hobbies });
-
       nameInput.value = "";
       ageInput.value = "";
       cityInput.value = "";
@@ -120,30 +114,9 @@
     });
 
     const translations = {
-      ar: {
-        title: "مرحبًا بك في GathUp!",
-        age: "العمر",
-        city: "المدينة",
-        hobbies: "الهوايات",
-        save: "تسجيل",
-        registered: "الأشخاص المسجلين:"
-      },
-      en: {
-        title: "Welcome to GathUp!",
-        age: "Age",
-        city: "City",
-        hobbies: "Hobbies",
-        save: "Register",
-        registered: "Registered Users:"
-      },
-      fr: {
-        title: "Bienvenue sur GathUp !",
-        age: "Âge",
-        city: "Ville",
-        hobbies: "Loisirs",
-        save: "S'inscrire",
-        registered: "Utilisateurs inscrits :"
-      }
+      ar: { title: "مرحبًا بك في GathUp!", age: "العمر", city: "المدينة", hobbies: "الهوايات", save: "تسجيل", registered: "الأشخاص المسجلين:" },
+      en: { title: "Welcome to GathUp!", age: "Age", city: "City", hobbies: "Hobbies", save: "Register", registered: "Registered Users:" },
+      fr: { title: "Bienvenue sur GathUp !", age: "Âge", city: "Ville", hobbies: "Loisirs", save: "S'inscrire", registered: "Utilisateurs inscrits :" }
     };
 
     let currentLang = "ar";
